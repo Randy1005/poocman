@@ -1,9 +1,10 @@
 #include "mainwindow.h"
 #include <QDebug>
-#include <QInputDialog>
+#include <QApplication>
 #include "maze.h"
 #include "mazegenerator.h"
-#include <QApplication>
+#include "timerproxy.h"
+
 
 int main(int argc, char *argv[])
 {
@@ -40,6 +41,9 @@ int main(int argc, char *argv[])
 
     // display maze
     mz -> show();
+
+    // test
+    TimerProxy *tm = new TimerProxy();
 
 
     return a.exec();

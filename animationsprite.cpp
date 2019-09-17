@@ -16,9 +16,9 @@ void AnimationSprite::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
 
 
 /**
- * @brief which will change the current animation,
+ * @brief change the current animation,
  *        reset the elapsed time counter,
- *        and update the current sub-rect to draw to match the first frame of the new animation
+ *        update the current sub-rect to draw to match the first frame of the new animation
  *
  * @param animName
  */

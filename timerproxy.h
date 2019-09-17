@@ -2,6 +2,7 @@
 #define TIMERPROXY_H
 
 #include <QObject>
+#include <QDebug>
 #include <QTimer>
 
 class TimerProxy : QObject
