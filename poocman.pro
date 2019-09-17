@@ -24,15 +24,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+    animationsprite.cpp \
         main.cpp \
         mainwindow.cpp \
     maze.cpp \
-    mazegenerator.cpp
+    mazegenerator.cpp \
+    timerproxy.cpp
 
 HEADERS += \
+    animationsprite.h \
         mainwindow.h \
     maze.h \
-    mazegenerator.h
+    mazegenerator.h \
+    timerproxy.h
 
 FORMS += \
         mainwindow.ui

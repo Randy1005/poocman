@@ -36,3 +36,4 @@ void Maze::paintEvent(QPaintEvent *event) {
 void Maze::setVec(QList<QList<bool>> const &vec) {
     vec_ = vec;
 }
+
