@@ -25,6 +25,7 @@ CONFIG += c++11
 
 SOURCES += \
     animationsprite.cpp \
+    character.cpp \
         main.cpp \
         mainwindow.cpp \
     maze.cpp \
@@ -33,6 +34,7 @@ SOURCES += \
 
 HEADERS += \
     animationsprite.h \
+    character.h \
         mainwindow.h \
     maze.h \
     mazegenerator.h \

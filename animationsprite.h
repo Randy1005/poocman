@@ -6,7 +6,7 @@
 #include <QDebug>
 #include "timerproxy.h"
 
-class AnimationSprite : QGraphicsObject
+class AnimationSprite : public QGraphicsObject
 {
     Q_OBJECT
 

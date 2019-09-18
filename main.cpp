@@ -4,7 +4,7 @@
 #include "maze.h"
 #include "mazegenerator.h"
 #include "timerproxy.h"
-#include "animationsprite.h"
+#include "character.h"
 
 
 int main(int argc, char *argv[])
@@ -47,7 +47,7 @@ int main(int argc, char *argv[])
 
     // test
     TimerProxy *tpro = new TimerProxy();
-
+    Character *cha = new Character(tpro);
 
     return a.exec();
 }
