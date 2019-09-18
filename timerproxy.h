@@ -5,17 +5,22 @@
 #include <QDebug>
 #include <QTimer>
 
-class TimerProxy : QObject
+class TimerProxy : public QObject
 {
+    Q_OBJECT
+
 public:
     TimerProxy();
-
-private:
+    ~TimerProxy();
     QTimer *timer;
 
 signals:
     // for all animated sprites to register to
     void updateTime(int msecs);
+
+private slots:
+    // to emit updateTime
+    void emitUpdate();
 
 
 };

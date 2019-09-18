@@ -4,11 +4,15 @@ TimerProxy::TimerProxy()
 {
     // instantiate QTimer
     timer = new QTimer(this);
-
-    // QObject::connect(timer, SIGNAL(timeout()), this, SLOT(updateTime(16)));
+    connect(timer, SIGNAL(timeout()), this, SLOT(emitUpdate()));
+    timer -> start(16);
 
 }
 
-void TimerProxy::updateTime(int msecs) {
-    qDebug() << "wow\n";
+TimerProxy::~TimerProxy() {
+
+}
+
+void TimerProxy::emitUpdate() {
+    emit updateTime(16);
 }

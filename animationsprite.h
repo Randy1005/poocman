@@ -3,24 +3,30 @@
 
 
 #include <QGraphicsObject>
+#include <QDebug>
+#include "timerproxy.h"
 
 class AnimationSprite : QGraphicsObject
 {
+    Q_OBJECT
+
 public:
-    AnimationSprite();
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    AnimationSprite(TimerProxy *);
+    ~AnimationSprite();
+    void paint(QPainter *, const QStyleOptionGraphicsItem *, QWidget *);
+    QRectF boundingRect() const = 0;
+
 
     // animation methods
-    void startAnim(const QString &animName);
+    void startAnim(const QString &);
 
-
-private:
-    QPixmap *mSpriteImage;
 
 
 private slots:
     void timeUpdated(int);
 
+private:
+    QPixmap *mSpriteImage;
 
 };
 

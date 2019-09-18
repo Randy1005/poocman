@@ -4,25 +4,28 @@
 #include "maze.h"
 #include "mazegenerator.h"
 #include "timerproxy.h"
+#include "animationsprite.h"
 
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    // initialize map [could be done in a smarter way]
+    // initialize map [could be done in a smarter/customized way]
     QList<QList<bool>> map {
-        {false, false, false, false, false, false, false, false, false, false, false},
-        {false, true, false, true, false, true, false, true, false, true, false},
-        {false, false, false, false, false, false, false, false, false, false, false},
-        {false, true, false, true, false, true, false, true, false, true, false},
-        {false, false, false, false, false, false, false, false, false, false, false},
-        {false, true, false, true, false, true, false, true, false, true, false},
-        {false, false, false, false, false, false, false, false, false, false, false},
-        {false, true, false, true, false, true, false, true, false, true, false},
-        {false, false, false, false, false, false, false, false, false, false, false},
-        {false, true, false, true, false, true, false, true, false, true, false},
-        {false, false, false, false, false, false, false, false, false, false, false},
+        {false, false, false, false, false, false, false, false, false, false, false, false, false},
+        {false, true, false, true, false, true, false, true, false, true, false, true, false},
+        {false, false, false, false, false, false, false, false, false, false, false,false, false},
+        {false, true, false, true, false, true, false, true, false, true, false, true, false},
+        {false, false, false, false, false, false, false, false, false, false, false, false, false},
+        {false, true, false, true, false, true, false, true, false, true, false, true, false},
+        {false, false, false, false, false, false, false, false, false, false, false, false, false},
+        {false, true, false, true, false, true, false, true, false, true, false, true, false},
+        {false, false, false, false, false, false, false, false, false, false, false, false, false},
+        {false, true, false, true, false, true, false, true, false, true, false, true, false},
+        {false, false, false, false, false, false, false, false, false, false, false, false, false},
+        {false, true, false, true, false, true, false, true, false, true, false, true, false},
+        {false, false, false, false, false, false, false, false, false, false, false, false, false}
     };
 
 
@@ -43,7 +46,7 @@ int main(int argc, char *argv[])
     mz -> show();
 
     // test
-    TimerProxy *tm = new TimerProxy();
+    TimerProxy *tpro = new TimerProxy();
 
 
     return a.exec();
