@@ -47,7 +47,6 @@ int main(int argc, char *argv[])
 
     // test
     TimerProxy *tpro = new TimerProxy();
-    Character *cha = new Character(tpro);
 
     return a.exec();
 }
