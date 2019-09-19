@@ -1,15 +1,21 @@
 #include "mainwindow.h"
 #include <QDebug>
 #include <QApplication>
+#include <QGraphicsView>
 #include "maze.h"
 #include "mazegenerator.h"
 #include "timerproxy.h"
-#include "character.h"
+#include "poocman.h"
 
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
+    QGraphicsScene *scene = new QGraphicsScene(nullptr);
+    QGraphicsView *view = new QGraphicsView();
+
+
 
     // initialize map [could be done in a smarter/customized way]
     QList<QList<bool>> map {
@@ -39,14 +45,20 @@ int main(int argc, char *argv[])
     mGen -> carve_passages_from(1, 1, map);
 
 
-    // setup map for maze widget
+    // setup map for maze
     mz -> setVec(map);
 
-    // display maze
-    mz -> show();
 
     // test
     TimerProxy *tpro = new TimerProxy();
+    Poocman *pc = new Poocman(tpro, ":/resource/poocman.json");
+
+    scene -> setSceneRect(0, 0, mz->width(), mz->height());
+    scene -> addWidget(mz);
+    scene -> addItem(pc);
+
+    view -> setScene(scene);
+    view -> show();
 
     return a.exec();
 }

@@ -3,7 +3,8 @@
 
 #include <QWidget>
 
-class Maze : public QWidget{
+class Maze : public QWidget
+{
     Q_OBJECT
 
 public:

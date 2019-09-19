@@ -25,19 +25,20 @@ CONFIG += c++11
 
 SOURCES += \
     animationsprite.cpp \
-    character.cpp \
         main.cpp \
         mainwindow.cpp \
     maze.cpp \
     mazegenerator.cpp \
+    poocman.cpp \
     timerproxy.cpp
 
 HEADERS += \
     animationsprite.h \
-    character.h \
+    commonInfo.h \
         mainwindow.h \
     maze.h \
     mazegenerator.h \
+    poocman.h \
     timerproxy.h
 
 FORMS += \
@@ -47,3 +48,10 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    resource/blinky_sprite.png \
+    resource/pacman_sprite.png
+
+RESOURCES += \
+    resources.qrc

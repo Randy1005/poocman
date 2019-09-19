@@ -4,7 +4,8 @@
 #include "maze.h"
 
 
-Maze::Maze(QWidget *parent) : QWidget(parent) {
+Maze::Maze(QWidget *parent) : QWidget(parent)
+{
 
 }
 
@@ -18,7 +19,7 @@ void Maze::paintEvent(QPaintEvent *event) {
 
     for(int y = 0; y < vec_.size(); y++) {
         for(int x = 0; x < vec_[y].size(); x++) {
-            pixmap_painter.setPen(vec_[y][x] ? QColor("black") : QColor("darkblue"));
+            pixmap_painter.setPen(vec_[y][x] ? QColor("black") : QColor("grey"));
             pixmap_painter.drawPoint(x, y); // Draw individual pixels
         }
     }

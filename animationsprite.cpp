@@ -1,13 +1,7 @@
 #include "animationsprite.h"
 
-AnimationSprite::AnimationSprite(TimerProxy *tpro)
+AnimationSprite::AnimationSprite(TimerProxy *tpro, QString name) : mSubRect(0, 0, 1, 1), mCurrAnim("idle"), mCurrFrame(0)
 {
-    // read anim descriptions (JSON file or any other format)
-
-
-    // initialize mSpriteImage
-
-
     // connect SIGNAL(TimerProxy::updateTime(int msecs)) to SLOT(timeUpdated(int))
     connect(tpro, SIGNAL(updateTime(int)), this, SLOT(timeUpdated(int)));
 }
@@ -17,14 +11,17 @@ AnimationSprite::~AnimationSprite() {
 }
 
 void AnimationSprite::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
-    // which version of drawPixmap is up to you
-    // void QPainter::drawPixmap(int x, int y, const QPixmap &pixmap, int sx, int sy, int sw, int sh)
+    // whichever version of drawPixmap/drawImage is up to you
+    // void QPainter::drawPixmap(QRectF, QPixmap)
 
-    // painter -> drawPixmap(...)
 }
 
 QRectF AnimationSprite::boundingRect() const {
+    return mSubRect;
+}
 
+void AnimationSprite::setSubRect(QRect newRectf) {
+    mSubRect = newRectf;
 }
 
 
@@ -40,5 +37,6 @@ void AnimationSprite::startAnim(const QString &animName) {
 }
 
 void AnimationSprite::timeUpdated(int msecs) {
-    qDebug() << "animated\n";
+    prepareGeometryChange();
+    update();
 }
