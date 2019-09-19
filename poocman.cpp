@@ -11,7 +11,7 @@ Poocman::Poocman(TimerProxy *tpro, QString name) : AnimationSprite(tpro, name)
     QString val = jsonfile.readAll();
     chrJsonDoc = QJsonDocument::fromJson(val.toUtf8(), &jsonError);
     if (jsonError.error) {
-        qDebug() << jsonError.errorString();
+        qWarning() << jsonError.errorString();
         return;
     }
     jsonfile.close();
@@ -25,6 +25,10 @@ Poocman::Poocman(TimerProxy *tpro, QString name) : AnimationSprite(tpro, name)
 
     // this info belongs to "poocman.json"
     setSubRect(QRect(0, 0, mSpriteImage->width()/3, mSpriteImage->height()/4));
+
+
+    // parse test
+    qDebug() << chrJsonObj["behaviors"].toArray();
 
 
 }

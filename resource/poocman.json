@@ -17,36 +17,43 @@
                     {
                         "animName": "idle",
                         "animFrames": [
-                            {"duration": 0.05, "rect": [10, 10, 10, 10], "origin": [10, 10]},
-                            {"duration": 0.05, "rect": [10, 10, 10, 10], "origin": [10, 10]}
+                            {"duration": 10, "rect": [32, 0, 16, 16], "origin": [10, 10]}
                         ]
                     },
                     {
                         "animName": "move_up",
                         "animFrames": [
-                            {"duration": 0.05, "rect": [10, 10, 10, 10], "origin": [10, 10]},
-                            {"duration": 0.05, "rect": [10, 10, 10, 10], "origin": [10, 10]}
+                            {"duration": 0.016, "rect": [32, 32, 16, 16], "origin": [10, 10]},
+                            {"duration": 0.016, "rect": [16, 32, 16, 16], "origin": [10, 10]},
+                            {"duration": 0.016, "rect": [0, 32, 16, 16], "origin": [10, 10]},
+                            {"duration": 0.016, "rect": [16, 32, 16, 16], "origin": [10, 10]}
                         ]
                     },
                     {
                         "animName": "move_down",
                         "animFrames": [
-                            {"duration": 0.05, "rect": [10, 10, 10, 10], "origin": [10, 10]},
-                            {"duration": 0.05, "rect": [10, 10, 10, 10], "origin": [10, 10]}
+                            {"duration": 0.016, "rect": [32, 48, 16, 16], "origin": [10, 10]},
+                            {"duration": 0.016, "rect": [16, 48, 16, 16], "origin": [10, 10]},
+                            {"duration": 0.016, "rect": [0, 48, 16, 16], "origin": [10, 10]},
+                            {"duration": 0.016, "rect": [16, 48, 16, 16], "origin": [10, 10]}
                         ]
                     },
                     {
                         "animName": "move_left",
                         "animFrames": [
-                            {"duration": 0.05, "rect": [10, 10, 10, 10], "origin": [10, 10]},
-                            {"duration": 0.05, "rect": [10, 10, 10, 10], "origin": [10, 10]}
+                            {"duration": 0.016, "rect": [32, 16, 16, 16], "origin": [10, 10]},
+                            {"duration": 0.016, "rect": [16, 16, 16, 16], "origin": [10, 10]},
+                            {"duration": 0.016, "rect": [0, 16, 16, 16], "origin": [10, 10]},
+                            {"duration": 0.016, "rect": [16, 16, 16, 16], "origin": [10, 10]}
                         ]
                     },
                     {
                         "animName": "move_right",
                         "animFrames": [
-                            {"duration": 0.05, "rect": [10, 10, 10, 10], "origin": [10, 10]},
-                            {"duration": 0.05, "rect": [10, 10, 10, 10], "origin": [10, 10]}
+                            {"duration": 0.016, "rect": [32, 0, 16, 16], "origin": [10, 10]},
+                            {"duration": 0.016, "rect": [16, 0, 16, 16], "origin": [10, 10]},
+                            {"duration": 0.016, "rect": [0, 0, 16, 16], "origin": [10, 10]},
+                            {"duration": 0.016, "rect": [16, 0, 16, 16], "origin": [10, 10]}
                         ]
                     }
                 ]

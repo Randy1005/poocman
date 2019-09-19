@@ -4,6 +4,7 @@ AnimationSprite::AnimationSprite(TimerProxy *tpro, QString name) : mSubRect(0, 0
 {
     // connect SIGNAL(TimerProxy::updateTime(int msecs)) to SLOT(timeUpdated(int))
     connect(tpro, SIGNAL(updateTime(int)), this, SLOT(timeUpdated(int)));
+
 }
 
 AnimationSprite::~AnimationSprite() {
@@ -20,8 +21,8 @@ QRectF AnimationSprite::boundingRect() const {
     return mSubRect;
 }
 
-void AnimationSprite::setSubRect(QRect newRectf) {
-    mSubRect = newRectf;
+void AnimationSprite::setSubRect(QRect newRect) {
+    mSubRect = newRect;
 }
 
 
@@ -32,7 +33,8 @@ void AnimationSprite::setSubRect(QRect newRectf) {
  *
  * @param animName
  */
-void AnimationSprite::startAnim(const QString &animName) {
+void AnimationSprite::startAnim(const QString animName) {
+    mCurrAnim = animName;
 
 }
 

@@ -27,7 +27,7 @@ public:
 
 
     // animation methods
-    void startAnim(const QString &);
+    void startAnim(const QString);
 
     // animation sprite image
     QPixmap *mSpriteImage;
