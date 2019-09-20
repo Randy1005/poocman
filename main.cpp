@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
 
     // test
     TimerProxy *tpro = new TimerProxy();
-    Poocman *pc = new Poocman(tpro, ":/resource/poocman.json");
+    Poocman *pc = new Poocman(tpro, ":/resource/poocman.json", scene);
 
     scene -> setSceneRect(0, 0, mz->width(), mz->height());
     scene -> addWidget(mz);

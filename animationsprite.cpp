@@ -1,10 +1,36 @@
 #include "animationsprite.h"
 
-AnimationSprite::AnimationSprite(TimerProxy *tpro, QString name) : mSubRect(0, 0, 1, 1), mCurrAnim("idle"), mCurrFrame(0)
+AnimationSprite::AnimationSprite(TimerProxy *tpro, QString name, QGraphicsScene *parent) :
+    mSubRect(0, 0, 1, 1), mCurrFrame(0), scene(parent)
 {
+    // convert JSON file to object
+    QFile jsonfile;
+    jsonfile.setFileName(name);
+    jsonfile.open(QIODevice::ReadOnly | QIODevice::Text);
+
+    QJsonParseError jsonError;
+    QString val = jsonfile.readAll();
+    chrJsonDoc = QJsonDocument::fromJson(val.toUtf8(), &jsonError);
+    if (jsonError.error) {
+        qWarning() << jsonError.errorString();
+        return;
+    }
+    jsonfile.close();
+
+    chrJsonObj = chrJsonDoc.object();
+
+    // parse animation descriptions
+    QJsonArray chrJsonArr = chrJsonObj["behaviors"].toArray();
+    foreach (const QJsonValue &val, chrJsonArr) {
+        QJsonObject obj = val.toObject();
+        if (obj["name"].toString() == "SpriteAnimationBehavior") {
+            animsArr = obj["params"].toObject()["anims"].toArray();
+        }
+    }
+
+
     // connect SIGNAL(TimerProxy::updateTime(int msecs)) to SLOT(timeUpdated(int))
     connect(tpro, SIGNAL(updateTime(int)), this, SLOT(timeUpdated(int)));
-
 }
 
 AnimationSprite::~AnimationSprite() {
@@ -34,11 +60,55 @@ void AnimationSprite::setSubRect(QRect newRect) {
  * @param animName
  */
 void AnimationSprite::startAnim(const QString animName) {
-    mCurrAnim = animName;
+    mCurrFrame = 0;
+    mAnimName = animName;
 
+    // parse current animation object, assign to mCurrentAnimation
+    foreach(const QJsonValue &val, animsArr) {
+        QJsonObject obj = val.toObject();
+        if (obj["animName"].toString() == animName) {
+            mCurrAnim = obj["animFrames"].toArray().at(mCurrFrame).toObject();
+        }
+    }
+
+    // assign to mSubRect
+    mSubRectArr = mCurrAnim["rect"].toArray();
+    mSubRect = QRect(mSubRectArr.at(0).toInt(),
+                     mSubRectArr.at(1).toInt(),
+                     mSubRectArr.at(2).toInt(),
+                     mSubRectArr.at(3).toInt());
+
+    // reset time counter
+    // .......
 }
 
 void AnimationSprite::timeUpdated(int msecs) {
+
     prepareGeometryChange();
-    update();
+
+    // parse current animation object, assign to mCurrentAnimation
+    // and increment frame
+    foreach(const QJsonValue &val, animsArr) {
+        QJsonObject obj = val.toObject();
+        if (obj["animName"].toString() == mAnimName) {
+            if (mCurrFrame < obj["animFrames"].toArray().size() - 1) {
+                ++mCurrFrame;
+            } else {
+                mCurrFrame = 0;
+            }
+
+            mCurrAnim = obj["animFrames"].toArray().at(mCurrFrame).toObject();
+
+            // update mSubRect
+            mSubRectArr = mCurrAnim["rect"].toArray();
+            setSubRect(QRect(mSubRectArr.at(0).toInt(),
+                             mSubRectArr.at(1).toInt(),
+                             mSubRectArr.at(2).toInt(),
+                             mSubRectArr.at(3).toInt()));
+
+        }
+    }
+
+    scene -> update();
+
 }
