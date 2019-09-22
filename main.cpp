@@ -42,23 +42,24 @@ int main(int argc, char *argv[])
     MazeGenerator *mGen = new MazeGenerator(map);
 
     // generate maze by backtracking
-    mGen -> carve_passages_from(1, 1, map);
+    mGen->carve_passages_from(1, 1, map);
 
 
     // setup map for maze
-    mz -> setVec(map);
+    mz->setVec(map);
 
 
     // test
     TimerProxy *tpro = new TimerProxy();
     Poocman *pc = new Poocman(tpro, ":/resource/poocman.json", scene);
 
-    scene -> setSceneRect(0, 0, mz->width(), mz->height());
-    scene -> addWidget(mz);
-    scene -> addItem(pc);
+    scene->setSceneRect(0, 0, mz->width(), mz->height());
+    scene->addWidget(mz);
+    scene->addItem(pc);
 
-    view -> setScene(scene);
-    view -> show();
+    view->setScene(scene);
+    view->setFocusPolicy(Qt::StrongFocus);
+    view->show();
 
     return a.exec();
 }

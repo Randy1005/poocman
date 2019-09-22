@@ -1,6 +1,7 @@
 #ifndef POOCMAN_H
 #define POOCMAN_H
 #include "animationsprite.h"
+#include <QKeyEvent>
 
 class Poocman : public AnimationSprite
 {
@@ -10,6 +11,7 @@ public:
 
     void paint(QPainter *, const QStyleOptionGraphicsItem *, QWidget *) override;
     QRectF boundingRect() const override;
+    void keyPressEvent(QKeyEvent *) override;
 
 };
 
