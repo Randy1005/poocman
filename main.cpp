@@ -19,19 +19,21 @@ int main(int argc, char *argv[])
 
     // initialize map [could be done in a smarter/customized way]
     QList<QList<bool>> map {
-        {false, false, false, false, false, false, false, false, false, false, false, false, false},
-        {false, true, false, true, false, true, false, true, false, true, false, true, false},
-        {false, false, false, false, false, false, false, false, false, false, false,false, false},
-        {false, true, false, true, false, true, false, true, false, true, false, true, false},
-        {false, false, false, false, false, false, false, false, false, false, false, false, false},
-        {false, true, false, true, false, true, false, true, false, true, false, true, false},
-        {false, false, false, false, false, false, false, false, false, false, false, false, false},
-        {false, true, false, true, false, true, false, true, false, true, false, true, false},
-        {false, false, false, false, false, false, false, false, false, false, false, false, false},
-        {false, true, false, true, false, true, false, true, false, true, false, true, false},
-        {false, false, false, false, false, false, false, false, false, false, false, false, false},
-        {false, true, false, true, false, true, false, true, false, true, false, true, false},
-        {false, false, false, false, false, false, false, false, false, false, false, false, false}
+        {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
+        {false, true, false, true, false, true, false, true, false, true, false, true, false, true, false},
+        {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
+        {false, true, false, true, false, true, false, true, false, true, false, true, false, true, false},
+        {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
+        {false, true, false, true, false, true, false, true, false, true, false, true, false, true, false},
+        {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
+        {false, true, false, true, false, true, false, true, false, true, false, true, false, true, false},
+        {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
+        {false, true, false, true, false, true, false, true, false, true, false, true, false, true, false},
+        {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
+        {false, true, false, true, false, true, false, true, false, true, false, true, false, true, false},
+        {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
+        {false, true, false, true, false, true, false, true, false, true, false, true, false, true, false},
+        {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false}
     };
 
 
@@ -51,15 +53,20 @@ int main(int argc, char *argv[])
 
     // test
     TimerProxy *tpro = new TimerProxy();
-    Poocman *pc = new Poocman(tpro, ":/resource/poocman.json", scene);
+    Poocman *pc = new Poocman(tpro, ":/resource/poocman.json", scene, map);
 
     scene->setSceneRect(0, 0, mz->width(), mz->height());
     scene->addWidget(mz);
     scene->addItem(pc);
 
+    // focusable item
+    pc->setFlag(QGraphicsItem::ItemIsFocusable);
+    pc->setFocus();
+
     view->setScene(scene);
     view->setFocusPolicy(Qt::StrongFocus);
     view->show();
+
 
     return a.exec();
 }

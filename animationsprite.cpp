@@ -1,7 +1,7 @@
 #include "animationsprite.h"
 
-AnimationSprite::AnimationSprite(TimerProxy *tpro, QString name, QGraphicsScene *parent) :
-    mSubRect(0, 0, 1, 1), mCurrFrame(0), scene(parent)
+AnimationSprite::AnimationSprite(TimerProxy *tpro, QString name, QGraphicsScene *parent, QList<QList<bool>> map) :
+    mSubRect(0, 0, 1, 1), mCurrFrame(0), scene(parent), gameMap(map)
 {
     // convert JSON file to object
     QFile jsonfile;
@@ -31,6 +31,9 @@ AnimationSprite::AnimationSprite(TimerProxy *tpro, QString name, QGraphicsScene 
 
     // connect SIGNAL(TimerProxy::updateTime(int msecs)) to SLOT(timeUpdated(int))
     connect(tpro, SIGNAL(updateTime(int)), this, SLOT(timeUpdated(int)));
+
+    offset = (GAME_WIDTH-GAME_HEIGHT)/4;
+    cell_unit = MAZE_SIZE/(2*MAZE_PASSAGE_SIZE+1)/2;
 }
 
 AnimationSprite::~AnimationSprite() {
@@ -49,6 +52,13 @@ QRectF AnimationSprite::boundingRect() const {
 
 void AnimationSprite::setSubRect(QRect newRect) {
     mSubRect = newRect;
+}
+
+QPoint AnimationSprite::gridtogameCoord(QPoint grid) {
+    return QPoint(
+                offset + grid.x()*cell_unit/2,
+                grid.y()*cell_unit/2
+           );
 }
 
 
@@ -78,8 +88,8 @@ void AnimationSprite::startAnim(const QString animName) {
                      mSubRectArr.at(2).toInt(),
                      mSubRectArr.at(3).toInt());
 
-    // reset time counter
-    // .......
+    // reset timer
+    // ...
 }
 
 void AnimationSprite::timeUpdated(int msecs) {
@@ -105,7 +115,6 @@ void AnimationSprite::timeUpdated(int msecs) {
                              mSubRectArr.at(1).toInt(),
                              mSubRectArr.at(2).toInt(),
                              mSubRectArr.at(3).toInt()));
-
         }
     }
 

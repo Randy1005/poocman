@@ -13,6 +13,7 @@
 #include <QJsonArray>
 #include <QFile>
 #include "commonInfo.h"
+#include <math.h>
 
 
 class AnimationSprite : public QGraphicsObject
@@ -20,18 +21,21 @@ class AnimationSprite : public QGraphicsObject
     Q_OBJECT
 
 public:
-    AnimationSprite(TimerProxy *, QString, QGraphicsScene *);
+    AnimationSprite(TimerProxy *, QString, QGraphicsScene *, QList<QList<bool>>);
     ~AnimationSprite();
     void paint(QPainter *, const QStyleOptionGraphicsItem *, QWidget *);
     QRectF boundingRect() const = 0;
     void setSubRect(QRect);
 
+    // convert from game view coordinate to grid(map) coordinate
+    QPoint gridtogameCoord(QPoint);
 
     // animation methods
     void startAnim(const QString);
 
     // animation sprite image
     QPixmap *mSpriteImage;
+
 
     // character json description
     QJsonObject chrJsonObj;
@@ -49,13 +53,21 @@ public:
     QString mAnimName;
     int mCurrFrame;
 
+    // game scene
     QGraphicsScene *scene;
+
+    // map
+    QList<QList<bool>> gameMap;
+
+    // map units
+    int offset;
+    int cell_unit;
+
 
 
 
 private slots:
     void timeUpdated(int);
-
 
 };
 
