@@ -1,6 +1,6 @@
 #include "poocman.h"
 
-Poocman::Poocman(TimerProxy *tpro, QString name, QGraphicsScene *parent, QList<QList<bool>> map) : AnimationSprite(tpro, name, parent, map)
+Poocman::Poocman(TimerProxy *tpro, QString name, QGraphicsScene *parent, QList<QList<bool>> map, Maze *mzWidget) : AnimationSprite(tpro, name, parent, map, mzWidget)
 {
     // read anim descriptions (JSON file or any other format)
     QFile jsonfile;
@@ -26,10 +26,13 @@ Poocman::Poocman(TimerProxy *tpro, QString name, QGraphicsScene *parent, QList<Q
     startAnim("move_right");
 
     // initialize speed/direction/position
-    setSpeed(0.005);
+    setSpeed(0.01);
     setDirection({0, 0});
 
+    // set initial position
+    // ----- coordinate somehow not unified ----- //
     setPos(offset+cell_unit, cell_unit);
+
 
 }
 
@@ -39,25 +42,44 @@ Poocman::~Poocman() {
 
 void Poocman::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
 
-    painter -> drawPixmap(pos().x(), pos().y(), cell_unit*2, cell_unit*2,
+    painter -> drawPixmap(pos().x(), pos().y(), cell_unit, cell_unit,
                           *mSpriteImage,
                           mSubRect.x(), mSubRect.y(), mSubRect.width(), mSubRect.height());
 
 
+    // wall check (with RGB difference)
+    int halfSize = (boundingRect().height()/2);
+    int centerX = pos().x()+halfSize;
+    int centerY = pos().y()+halfSize;
 
-    for (int i = 0; i < 2*MAZE_PASSAGE_SIZE+1; i++) {
-        for (int j = 0; j < 2*MAZE_PASSAGE_SIZE+1; j++) {
-            if (gameMap[i][j] == false &&
-                pos().x() > gridtogameCoord({i, j}).x() && pos().x() < (gridtogameCoord({i, j}).x()+cell_unit) &&
-                pos().y() > gridtogameCoord({i, j}).y() && pos().y() < (gridtogameCoord({i, j}).y()+cell_unit)) {
-                setSpeed(0);
-            }
+    if (currDir == 2) {
+        if (qRed(mazeWidget->getPixelRGB(centerX+halfSize, centerY)) == 128) {
+            // stop
+            return;
         }
+
+    } else if (currDir == 3) {
+        if (qRed(mazeWidget->getPixelRGB(centerX-halfSize, centerY)) == 128) {
+            return;
+        }
+
+    } else if (currDir == 0) {
+        if (qRed(mazeWidget->getPixelRGB(centerX, centerY-halfSize)) == 128) {
+            return;
+        }
+
+    } else if (currDir == 1) {
+        if (qRed(mazeWidget->getPixelRGB(centerX, centerY+halfSize)) == 128) {
+            return;
+        }
+
+    } else {
+
     }
 
+    setSpeed(0.01);
     setPos(pos().x()+direction.x()*speed,
            pos().y()+direction.y()*speed);
-
 
 }
 
@@ -86,20 +108,25 @@ void Poocman::keyPressEvent(QKeyEvent *event) {
     switch(event->key()) {
     case Qt::Key_Up:
         setDirection({0, -1});
+        currDir = 0;
         startAnim("move_up");
         break;
     case Qt::Key_Down:
         setDirection({0, 1});
+        currDir = 1;
         startAnim("move_down");
         break;
     case Qt::Key_Right:
         setDirection({1, 0});
+        currDir = 2;
         startAnim("move_right");
         break;
     case Qt::Key_Left:
         setDirection({-1, 0});
+        currDir = 3;
         startAnim("move_left");
         break;
     }
 }
+
 

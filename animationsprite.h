@@ -14,14 +14,19 @@
 #include <QFile>
 #include "commonInfo.h"
 #include <math.h>
+#include "maze.h"
 
+
+typedef struct gridBound {
+    double xMin, xMax, yMin, yMax;
+} GridBound;
 
 class AnimationSprite : public QGraphicsObject
 {
     Q_OBJECT
 
 public:
-    AnimationSprite(TimerProxy *, QString, QGraphicsScene *, QList<QList<bool>>);
+    AnimationSprite(TimerProxy *, QString, QGraphicsScene *, QList<QList<bool>>, Maze *);
     ~AnimationSprite();
     void paint(QPainter *, const QStyleOptionGraphicsItem *, QWidget *);
     QRectF boundingRect() const = 0;
@@ -62,6 +67,12 @@ public:
     // map units
     int offset;
     int cell_unit;
+
+    // converted grid coordinates
+    QVector<QVector<GridBound>> gameCoords;
+
+    // maze widget
+    Maze *mazeWidget;
 
 
 

@@ -7,7 +7,7 @@
 class Poocman : public AnimationSprite
 {
 public:
-    Poocman(TimerProxy *, QString, QGraphicsScene *, QList<QList<bool>> map);
+    Poocman(TimerProxy *, QString, QGraphicsScene *, QList<QList<bool>>, Maze *);
     ~Poocman() override;
 
     void paint(QPainter *, const QStyleOptionGraphicsItem *, QWidget *) override;
@@ -21,6 +21,8 @@ public:
 
     double speed;
     QPoint direction;
+
+    int currDir; // 0up 1down 2right 3left
 
 protected:
     void keyPressEvent(QKeyEvent *) override;

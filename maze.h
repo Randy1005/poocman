@@ -9,11 +9,16 @@ class Maze : public QWidget
 
 public:
     Maze(QWidget *parent = 0);
-    ~Maze();
+    ~Maze() override;
     void paintEvent(QPaintEvent *event = 0);
     void setVec(QList<QList<bool>> const &vec);
+    void mousePressEvent(QMouseEvent *event) override;
+    void renderToPixmap();
+    QRgb getPixelRGB(int, int);
 
     QList<QList<bool>> vec_;
+    QPixmap *mazePixmap;
+    QPixmap pixmap_scaled;
 };
 
 #endif // MAZE_H

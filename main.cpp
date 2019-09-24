@@ -50,10 +50,13 @@ int main(int argc, char *argv[])
     // setup map for maze
     mz->setVec(map);
 
+    // create image pixmap of maze
+    mz->renderToPixmap();
+
 
     // test
     TimerProxy *tpro = new TimerProxy();
-    Poocman *pc = new Poocman(tpro, ":/resource/poocman.json", scene, map);
+    Poocman *pc = new Poocman(tpro, ":/resource/poocman.json", scene, map, mz);
 
     scene->setSceneRect(0, 0, mz->width(), mz->height());
     scene->addWidget(mz);
@@ -66,6 +69,7 @@ int main(int argc, char *argv[])
     view->setScene(scene);
     view->setFocusPolicy(Qt::StrongFocus);
     view->show();
+
 
 
     return a.exec();

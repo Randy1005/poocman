@@ -6,11 +6,11 @@
 
 Maze::Maze(QWidget *parent) : QWidget(parent)
 {
-
+    mazePixmap = new QPixmap(size());
 }
 
 Maze::~Maze() {
-
+    delete(mazePixmap);
 }
 
 void Maze::paintEvent(QPaintEvent *event) {
@@ -25,7 +25,7 @@ void Maze::paintEvent(QPaintEvent *event) {
     }
 
     QPainter painter(this);
-    QPixmap pixmap_scaled = pixmap.scaled(size(), Qt::KeepAspectRatio); // scale to fit the widget
+    pixmap_scaled = pixmap.scaled(size(), Qt::KeepAspectRatio); // scale to fit the widget
 
     painter.drawPixmap(
         (width() - pixmap_scaled.width()) / 2,
@@ -37,4 +37,23 @@ void Maze::paintEvent(QPaintEvent *event) {
 void Maze::setVec(QList<QList<bool>> const &vec) {
     vec_ = vec;
 }
+
+void Maze::mousePressEvent(QMouseEvent *event) {
+    QPointF mousePosition = event->pos();
+    qDebug() << "X: " << mousePosition.x() <<
+                "Y: " << mousePosition.y() <<
+                "RGB: " << qRed(getPixelRGB(mousePosition.x(), mousePosition.y()));
+}
+
+void Maze::renderToPixmap() {
+    render(mazePixmap, QPoint(), QRegion(QRect((width() - pixmap_scaled.width()) / 2,
+                                               (height() - pixmap_scaled.height()) / 2,
+                                               pixmap_scaled.width(),
+                                               pixmap_scaled.height())));
+}
+
+QRgb Maze::getPixelRGB(int x, int y) {
+    return mazePixmap->toImage().pixel(x, y);
+}
+
 

@@ -25,7 +25,7 @@ private:
     QList<int> dirY = {0, 0, 2, -2};
     QList<QList<bool>> visited;
 
-    unsigned seed; // obtain a time-based seed
+    long long seed; // obtain a time-based seed
 };
 
 #endif
