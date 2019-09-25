@@ -5,7 +5,7 @@ TimerProxy::TimerProxy()
     // instantiate QTimer
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(emitUpdate()));
-    timer -> start(100);
+    timer -> start(64);
 }
 
 TimerProxy::~TimerProxy() {
@@ -13,5 +13,5 @@ TimerProxy::~TimerProxy() {
 }
 
 void TimerProxy::emitUpdate() {
-    emit updateTime(100);
+    emit updateTime(64);
 }

@@ -36,7 +36,6 @@ int main(int argc, char *argv[])
         {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false}
     };
 
-
     // new maze widget
     Maze *mz = new Maze();
 
@@ -50,17 +49,18 @@ int main(int argc, char *argv[])
     // setup map for maze
     mz->setVec(map);
 
-    // create image pixmap of maze
+    // create image pixmap of maze (for wall checking)
     mz->renderToPixmap();
 
 
     // test
     TimerProxy *tpro = new TimerProxy();
-    Poocman *pc = new Poocman(tpro, ":/resource/poocman.json", scene, map, mz);
+    Poocman *pc = new Poocman(tpro, ":/resource/poocman.json", scene, mz);
 
     scene->setSceneRect(0, 0, mz->width(), mz->height());
     scene->addWidget(mz);
     scene->addItem(pc);
+
 
     // focusable item
     pc->setFlag(QGraphicsItem::ItemIsFocusable);

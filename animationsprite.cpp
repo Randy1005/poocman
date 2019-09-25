@@ -1,7 +1,7 @@
 #include "animationsprite.h"
 
-AnimationSprite::AnimationSprite(TimerProxy *tpro, QString name, QGraphicsScene *parent, QList<QList<bool>> map, Maze *mzWidget) :
-    mSubRect(0, 0, 1, 1), mCurrFrame(0), scene(parent), gameMap(map), mazeWidget(mzWidget)
+AnimationSprite::AnimationSprite(TimerProxy *tpro, QString name, QGraphicsScene *parent, Maze *mzWidget) :
+    mSubRect(0, 0, 1, 1), mCurrFrame(0), scene(parent), mazeWidget(mzWidget)
 {
     // convert JSON file to object
     QFile jsonfile;
@@ -35,18 +35,6 @@ AnimationSprite::AnimationSprite(TimerProxy *tpro, QString name, QGraphicsScene 
     // assign margin offset / cell unit size
     offset = (GAME_WIDTH-GAME_HEIGHT)/2;
     cell_unit = MAZE_SIZE/(2*MAZE_PASSAGE_SIZE+1);
-
-    // store the converted grid coordinate
-//    gameCoords = QVector<QVector<GridBound>>(gameMap.size());
-//    for (int i = 0; i < gameMap.size(); i++) {
-//        gameCoords[i].resize(gameMap.size());
-//        for (int j = 0; j < gameMap[i].size(); j++) {
-//            gameCoords[i][j].xMin = gridtogameCoord({i, j}).x();
-//            gameCoords[i][j].xMax = gridtogameCoord({i, j}).x()+cell_unit;
-//            gameCoords[i][j].yMin = gridtogameCoord({i, j}).y();
-//            gameCoords[i][j].yMax = gridtogameCoord({i, j}).y()+cell_unit;
-//        }
-//    }
 }
 
 AnimationSprite::~AnimationSprite() {
@@ -64,13 +52,6 @@ QRectF AnimationSprite::boundingRect() const {
 
 void AnimationSprite::setSubRect(QRect newRect) {
     mSubRect = newRect;
-}
-
-QPoint AnimationSprite::gridtogameCoord(QPoint grid) {
-    return QPoint(
-                offset + grid.x()*cell_unit,
-                grid.y()*cell_unit
-           );
 }
 
 

@@ -13,27 +13,21 @@
 #include <QJsonArray>
 #include <QFile>
 #include "commonInfo.h"
-#include <math.h>
 #include "maze.h"
 
 
-typedef struct gridBound {
-    double xMin, xMax, yMin, yMax;
-} GridBound;
 
 class AnimationSprite : public QGraphicsObject
 {
     Q_OBJECT
 
 public:
-    AnimationSprite(TimerProxy *, QString, QGraphicsScene *, QList<QList<bool>>, Maze *);
+    AnimationSprite(TimerProxy *, QString, QGraphicsScene *, Maze *);
     ~AnimationSprite();
     void paint(QPainter *, const QStyleOptionGraphicsItem *, QWidget *);
     QRectF boundingRect() const = 0;
     void setSubRect(QRect);
 
-    // convert from game view coordinate to grid(map) coordinate
-    QPoint gridtogameCoord(QPoint);
 
     // animation methods
     void startAnim(const QString);
@@ -61,20 +55,12 @@ public:
     // game scene
     QGraphicsScene *scene;
 
-    // map
-    QList<QList<bool>> gameMap;
-
     // map units
     int offset;
     int cell_unit;
 
-    // converted grid coordinates
-    QVector<QVector<GridBound>> gameCoords;
-
     // maze widget
     Maze *mazeWidget;
-
-
 
 
 private slots:

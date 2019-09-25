@@ -1,8 +1,9 @@
 #include "poocman.h"
 
-Poocman::Poocman(TimerProxy *tpro, QString name, QGraphicsScene *parent, QList<QList<bool>> map, Maze *mzWidget) : AnimationSprite(tpro, name, parent, map, mzWidget)
+Poocman::Poocman(TimerProxy *tpro, QString name, QGraphicsScene *parent, Maze *mzWidget) :
+    AnimationSprite(tpro, name, parent, mzWidget)
 {
-    // read anim descriptions (JSON file or any other format)
+    // read animation descriptions (JSON file or any other format)
     QFile jsonfile;
     jsonfile.setFileName(name);
     jsonfile.open(QIODevice::ReadOnly | QIODevice::Text);
@@ -22,18 +23,15 @@ Poocman::Poocman(TimerProxy *tpro, QString name, QGraphicsScene *parent, QList<Q
     QString mSpritePath = ":/resource/" + chrJsonObj.value("sprite_name").toString();
     mSpriteImage = new QPixmap(mSpritePath);
 
-    // test animation
-    startAnim("move_right");
+    // initialize animation
+    startAnim("idle");
 
-    // initialize speed/direction/position
-    setSpeed(0.01);
+    // initialize speed/direction
     setDirection({0, 0});
 
-    // set initial position
-    // ----- coordinate somehow not unified ----- //
-    setPos(offset+cell_unit, cell_unit);
-
-
+    // set initial position (scenePos / 2) [just some random conversion, don't really know why]
+    setPos((offset+cell_unit)/2, cell_unit/2);
+    // -- calling mapToScene in this case does not work, cuz the item has not yet been added to the scene -- //
 }
 
 Poocman::~Poocman() {
@@ -41,45 +39,28 @@ Poocman::~Poocman() {
 }
 
 void Poocman::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
-
     painter -> drawPixmap(pos().x(), pos().y(), cell_unit, cell_unit,
                           *mSpriteImage,
                           mSubRect.x(), mSubRect.y(), mSubRect.width(), mSubRect.height());
 
 
-    // wall check (with RGB difference)
-    int halfSize = (boundingRect().height()/2);
-    int centerX = pos().x()+halfSize;
-    int centerY = pos().y()+halfSize;
+    // wall check (with RGB difference, poocman is only allowed to move along the black tiles, RGB=[0, 0, 0])
+    // caution: we divided item coordinate by 2 before
+    // so the pixmap coordinate has to be multiplied by 2 here
+    int size = (boundingRect().width());
+    int centerX = pos().x()*2+size;
+    int centerY = pos().y()*2+size;
 
-    if (currDir == 2) {
-        if (qRed(mazeWidget->getPixelRGB(centerX+halfSize, centerY)) == 128) {
-            // stop
-            return;
-        }
-
-    } else if (currDir == 3) {
-        if (qRed(mazeWidget->getPixelRGB(centerX-halfSize, centerY)) == 128) {
-            return;
-        }
-
-    } else if (currDir == 0) {
-        if (qRed(mazeWidget->getPixelRGB(centerX, centerY-halfSize)) == 128) {
-            return;
-        }
-
-    } else if (currDir == 1) {
-        if (qRed(mazeWidget->getPixelRGB(centerX, centerY+halfSize)) == 128) {
-            return;
-        }
-
-    } else {
-
+    if ((currDir == 2 && qRed(mazeWidget->getPixelRGB(centerX+size, centerY)) == 0) ||
+        (currDir == 3 && qRed(mazeWidget->getPixelRGB(centerX-size, centerY)) == 0) ||
+        (currDir == 0 && qRed(mazeWidget->getPixelRGB(centerX, centerY-size)) == 0) ||
+        (currDir == 1 && qRed(mazeWidget->getPixelRGB(centerX, centerY+size)) == 0)) {
+        setSpeed(0.02);
+        setPos(pos().x()+direction.x()*speed,
+               pos().y()+direction.y()*speed);
     }
 
-    setSpeed(0.01);
-    setPos(pos().x()+direction.x()*speed,
-           pos().y()+direction.y()*speed);
+
 
 }
 
