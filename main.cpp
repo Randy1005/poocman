@@ -2,10 +2,13 @@
 #include <QDebug>
 #include <QApplication>
 #include <QGraphicsView>
+#include <QVector>
 #include "maze.h"
 #include "mazegenerator.h"
 #include "timerproxy.h"
 #include "poocman.h"
+#include "ghost.h"
+#include "clyde.h"
 
 
 int main(int argc, char *argv[])
@@ -16,25 +19,30 @@ int main(int argc, char *argv[])
     QGraphicsView *view = new QGraphicsView();
 
 
-
     // initialize map [could be done in a smarter/customized way]
+    // create a 9 x 9 maze map  (try 15x15 next time)
     QList<QList<bool>> map {
-        {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
-        {false, true, false, true, false, true, false, true, false, true, false, true, false, true, false},
-        {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
-        {false, true, false, true, false, true, false, true, false, true, false, true, false, true, false},
-        {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
-        {false, true, false, true, false, true, false, true, false, true, false, true, false, true, false},
-        {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
-        {false, true, false, true, false, true, false, true, false, true, false, true, false, true, false},
-        {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
-        {false, true, false, true, false, true, false, true, false, true, false, true, false, true, false},
-        {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
-        {false, true, false, true, false, true, false, true, false, true, false, true, false, true, false},
-        {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
-        {false, true, false, true, false, true, false, true, false, true, false, true, false, true, false},
-        {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false}
+        {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
+        {false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false},
+        {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
+        {false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false},
+        {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
+        {false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false},
+        {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
+        {false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false},
+        {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
+        {false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false},
+        {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
+        {false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false},
+        {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
+        {false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false},
+        {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
+        {false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false},
+        {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
+        {false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false},
+        {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false}
     };
+
 
     // new maze widget
     Maze *mz = new Maze();
@@ -56,20 +64,22 @@ int main(int argc, char *argv[])
     // test
     TimerProxy *tpro = new TimerProxy();
     Poocman *pc = new Poocman(tpro, ":/resource/poocman.json", scene, mz);
+    Clyde *c = new Clyde(tpro, ":/resource/ghost.json", scene, mz);
+    c->setPos(0, 0);
+
 
     scene->setSceneRect(0, 0, mz->width(), mz->height());
     scene->addWidget(mz);
     scene->addItem(pc);
+    scene->addItem(c);
 
-
-    // focusable item
+    // focusable poocman item
     pc->setFlag(QGraphicsItem::ItemIsFocusable);
     pc->setFocus();
 
     view->setScene(scene);
     view->setFocusPolicy(Qt::StrongFocus);
     view->show();
-
 
 
     return a.exec();

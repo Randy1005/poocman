@@ -47,14 +47,14 @@ void Poocman::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
     // wall check (with RGB difference, poocman is only allowed to move along the black tiles, RGB=[0, 0, 0])
     // caution: we divided item coordinate by 2 before
     // so the pixmap coordinate has to be multiplied by 2 here
-    int size = (boundingRect().width());
-    int centerX = pos().x()*2+size;
-    int centerY = pos().y()*2+size;
+    int bound = (boundingRect().width()/(1.3));
+    int centerX = pos().x()*2+bound;
+    int centerY = pos().y()*2+bound;
 
-    if ((currDir == 2 && qRed(mazeWidget->getPixelRGB(centerX+size, centerY)) == 0) ||
-        (currDir == 3 && qRed(mazeWidget->getPixelRGB(centerX-size, centerY)) == 0) ||
-        (currDir == 0 && qRed(mazeWidget->getPixelRGB(centerX, centerY-size)) == 0) ||
-        (currDir == 1 && qRed(mazeWidget->getPixelRGB(centerX, centerY+size)) == 0)) {
+    if ((currDir == 2 && qRed(mazeWidget->getPixelRGB(centerX+bound, centerY)) == 0) ||
+        (currDir == 3 && qRed(mazeWidget->getPixelRGB(centerX-bound, centerY)) == 0) ||
+        (currDir == 0 && qRed(mazeWidget->getPixelRGB(centerX, centerY-bound)) == 0) ||
+        (currDir == 1 && qRed(mazeWidget->getPixelRGB(centerX, centerY+bound)) == 0)) {
         setSpeed(0.02);
         setPos(pos().x()+direction.x()*speed,
                pos().y()+direction.y()*speed);

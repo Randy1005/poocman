@@ -8,9 +8,9 @@ class Maze : public QWidget
     Q_OBJECT
 
 public:
-    Maze(QWidget *parent = 0);
+    Maze(QWidget *parent = nullptr);
     ~Maze() override;
-    void paintEvent(QPaintEvent *event = 0);
+    void paintEvent(QPaintEvent *event = nullptr) override;
     void setVec(QList<QList<bool>> const &vec);
     void mousePressEvent(QMouseEvent *event) override;
     void renderToPixmap();

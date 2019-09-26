@@ -25,6 +25,8 @@ CONFIG += c++11
 
 SOURCES += \
     animationsprite.cpp \
+    clyde.cpp \
+    ghost.cpp \
         main.cpp \
         mainwindow.cpp \
     maze.cpp \
@@ -34,7 +36,9 @@ SOURCES += \
 
 HEADERS += \
     animationsprite.h \
+    clyde.h \
     commonInfo.h \
+    ghost.h \
         mainwindow.h \
     maze.h \
     mazegenerator.h \
@@ -51,6 +55,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 DISTFILES += \
     resource/blinky_sprite.png \
+    resource/ghost.json \
     resource/pacman_sprite.png
 
 RESOURCES += \

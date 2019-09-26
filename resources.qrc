@@ -1,7 +1,8 @@
 <RCC>
     <qresource prefix="/">
-        <file>resource/blinky_sprite.png</file>
         <file>resource/pacman_sprite.png</file>
         <file>resource/poocman.json</file>
+        <file>resource/ghost.json</file>
+        <file>resource/blinky_sprite.png</file>
     </qresource>
 </RCC>

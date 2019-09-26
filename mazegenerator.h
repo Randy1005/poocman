@@ -18,14 +18,14 @@ public:
     void carve_passages_from(int currX, int currY, QList<QList<bool>> &map);
 
 private:
-    std::array<int, 4> directions = {0, 1, 2, 3}; // North, South, East, West
+    std::array<int, 4> directions = {0, 1, 2, 3}; // West, East, South, North
     int nextX;
     int nextY;
     QList<int> dirX = {-2, 2, 0, 0};
     QList<int> dirY = {0, 0, 2, -2};
     QList<QList<bool>> visited;
 
-    long long seed; // obtain a time-based seed
+    unsigned seed; // obtain a time-based seed
 };
 
 #endif
