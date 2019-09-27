@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
     TimerProxy *tpro = new TimerProxy();
     Poocman *pc = new Poocman(tpro, ":/resource/poocman.json", scene, mz);
     Clyde *c = new Clyde(tpro, ":/resource/ghost.json", scene, mz);
-    c->setPos(0, 0);
+    c->setSpeed(0.01);
 
 
     scene->setSceneRect(0, 0, mz->width(), mz->height());
@@ -76,6 +76,9 @@ int main(int argc, char *argv[])
     // focusable poocman item
     pc->setFlag(QGraphicsItem::ItemIsFocusable);
     pc->setFocus();
+
+    c->setFlag(QGraphicsItem::ItemIsFocusable);
+    //c->setFocus();
 
     view->setScene(scene);
     view->setFocusPolicy(Qt::StrongFocus);

@@ -63,7 +63,6 @@ void AnimationSprite::setSubRect(QRect newRect) {
  * @param animName
  */
 void AnimationSprite::startAnim(const QString animName) {
-    mCurrFrame = 0;
     mAnimName = animName;
 
     // parse current animation object, assign to mCurrentAnimation
@@ -94,7 +93,7 @@ void AnimationSprite::timeUpdated(int msecs) {
     foreach(const QJsonValue &val, animsArr) {
         QJsonObject obj = val.toObject();
         if (obj["animName"].toString() == mAnimName) {
-            if (mCurrFrame < obj["animFrames"].toArray().size() - 1) {
+            if (mCurrFrame < obj["animFrames"].toArray().size()-1) {
                 ++mCurrFrame;
             } else {
                 mCurrFrame = 0;

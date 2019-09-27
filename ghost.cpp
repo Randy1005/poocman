@@ -30,7 +30,6 @@ Ghost::Ghost(TimerProxy *tpro, QString name, QGraphicsScene *parent, Maze *mzWid
 
     // initialize speed/direction
     setDirection({0, 0});
-
 }
 
 Ghost::~Ghost() {

@@ -3,6 +3,7 @@
 #include "ghost.h"
 #include <algorithm>
 #include "mazegenerator.h"
+#include <QKeyEvent>
 
 
 class Clyde : public Ghost
@@ -15,6 +16,9 @@ public:
     QPoint directions[4] = {{0, -1}, {0, 1}, {1, 0}, {-1, 0}};
 
     unsigned seed;
+
+protected:
+    void keyPressEvent(QKeyEvent *event) override;
 
 };
 
