@@ -5,8 +5,6 @@ Clyde::Clyde(TimerProxy *tpro, QString name, QGraphicsScene *sc, Maze *mzWidget)
 {
     setSpriteColor(QColor("orange"));
 
-    seed = std::chrono::system_clock::now().time_since_epoch().count();
-
     setPos((offset+cell_unit)/2, cell_unit/2);
 
     availableDirs = std::vector<int>(0);
@@ -49,11 +47,10 @@ void Clyde::paint(QPainter *painter, const QStyleOptionGraphicsItem *style, QWid
         if (-getDirection() != QPoint(0, -1) && qRed(mazeWidget->getPixelRGB(centerX, centerY-bound-safeDist)) == 0) {availableDirs.push_back(0);}
         if (-getDirection() != QPoint(0, 1) && qRed(mazeWidget->getPixelRGB(centerX, centerY+bound)) == 0) {availableDirs.push_back(1);}
 
-
+        // random index
         std::uniform_int_distribution<int> dis(0, availableDirs.size()-1);
         int rndIdx = dis(generator);
-        // random index
-        qDebug() << rndIdx;
+
         setDirection(directions[availableDirs[rndIdx]]);
 
         availableDirs.clear();
@@ -72,19 +69,3 @@ void Clyde::paint(QPainter *painter, const QStyleOptionGraphicsItem *style, QWid
     if (getDirection() == QPoint(-1, 0)) {startAnim("move_left");}
 }
 
-void Clyde::keyPressEvent(QKeyEvent *event) {
-    switch(event->key()) {
-    case Qt::Key_W:
-        setPos(pos().x(), pos().y()-1);
-        break;
-    case Qt::Key_A:
-        setPos(pos().x()-1, pos().y());
-        break;
-    case Qt::Key_S:
-        setPos(pos().x(), pos().y()+1);
-        break;
-    case Qt::Key_D:
-        setPos(pos().x()+1, pos().y());
-        break;
-    }
-}

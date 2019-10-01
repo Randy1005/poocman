@@ -9,6 +9,7 @@
 #include "poocman.h"
 #include "ghost.h"
 #include "clyde.h"
+#include "blinky.h"
 
 
 int main(int argc, char *argv[])
@@ -65,20 +66,21 @@ int main(int argc, char *argv[])
     TimerProxy *tpro = new TimerProxy();
     Poocman *pc = new Poocman(tpro, ":/resource/poocman.json", scene, mz);
     Clyde *c = new Clyde(tpro, ":/resource/ghost.json", scene, mz);
+    Blinky *b = new Blinky(tpro, ":/resource/ghost.json", scene, mz, pc);
+    b->setSpeed(0.006);
     c->setSpeed(0.01);
 
 
     scene->setSceneRect(0, 0, mz->width(), mz->height());
     scene->addWidget(mz);
     scene->addItem(pc);
+    scene->addItem(b);
     scene->addItem(c);
 
     // focusable poocman item
     pc->setFlag(QGraphicsItem::ItemIsFocusable);
     pc->setFocus();
 
-    c->setFlag(QGraphicsItem::ItemIsFocusable);
-    //c->setFocus();
 
     view->setScene(scene);
     view->setFocusPolicy(Qt::StrongFocus);

@@ -23,8 +23,6 @@ Ghost::Ghost(TimerProxy *tpro, QString name, QGraphicsScene *parent, Maze *mzWid
     QString mSpritePath = ":/resource/" + chrJsonObj.value("sprite_name").toString();
     mSpriteImage = new QPixmap(mSpritePath);
 
-    qDebug() << mSpritePath;
-
     // initialize animation
     startAnim("move_up");
 

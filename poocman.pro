@@ -25,6 +25,7 @@ CONFIG += c++11
 
 SOURCES += \
     animationsprite.cpp \
+    blinky.cpp \
     clyde.cpp \
     ghost.cpp \
         main.cpp \
@@ -36,6 +37,7 @@ SOURCES += \
 
 HEADERS += \
     animationsprite.h \
+    blinky.h \
     clyde.h \
     commonInfo.h \
     ghost.h \
