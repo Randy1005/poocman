@@ -10,7 +10,9 @@ Clyde::Clyde(TimerProxy *tpro, QString name, QGraphicsScene *sc, Maze *mzWidget)
     setPos((offset+cell_unit)/2, cell_unit/2);
 
     availableDirs = std::vector<int>(0);
-    currDir = -1;
+
+
+    setDirection(QPoint(-1, 0));
 }
 
 void Clyde::paint(QPainter *painter, const QStyleOptionGraphicsItem *style, QWidget *widget) {
@@ -26,35 +28,48 @@ void Clyde::paint(QPainter *painter, const QStyleOptionGraphicsItem *style, QWid
     int bound = boundingRect().height()/2;
     int centerX = (pos().x()+bound)*2;
     int centerY = (pos().y()+bound)*2;
-    int safeDist = 5;
+    int safeDist = 4;
 
-    // check clyde's current available directions (with his sensors[like a self-driving car])
-    if (getDirection() != QPoint(-1, 0) && qRed(mazeWidget->getPixelRGB(centerX+bound, centerY)) == 0) {availableDirs.push_back(2);}
-    if (getDirection() != QPoint(1, 0) && qRed(mazeWidget->getPixelRGB(centerX-bound-safeDist, centerY)) == 0) {availableDirs.push_back(3);}
-    if (getDirection() != QPoint(0, 1) && qRed(mazeWidget->getPixelRGB(centerX, centerY-bound-safeDist)) == 0) {availableDirs.push_back(0);}
-    if (getDirection() != QPoint(0, -1) && qRed(mazeWidget->getPixelRGB(centerX, centerY+bound)) == 0) {availableDirs.push_back(1);}
-
-    // no backwards, should be up to 3 possible directions
-    shuffle(availableDirs.begin(), availableDirs.end(), std::default_random_engine(seed));
-    qDebug() << availableDirs;
-    if (availableDirs.size() == 0) {
-        // dead end, turn around
-        setDirection(-getDirection());
-    } else {
-        setDirection(directions[availableDirs[0]]);
+    // bump into a wall -> setSpeed(0)
+    if ((getDirection() == QPoint(1, 0) && qRed(mazeWidget->getPixelRGB(centerX+bound, centerY)) != 0) ||
+        (getDirection() == QPoint(-1, 0) && qRed(mazeWidget->getPixelRGB(centerX-bound-safeDist, centerY)) != 0) ||
+        (getDirection() == QPoint(0, -1) && qRed(mazeWidget->getPixelRGB(centerX, centerY-bound-safeDist)) != 0) ||
+        (getDirection() == QPoint(0, 1) && qRed(mazeWidget->getPixelRGB(centerX, centerY+bound)) != 0)) {
+        setSpeed(0.0);
     }
 
-    if (getDirection() == QPoint(0, -1)) {startAnim("move_up");}
-    if (getDirection() == QPoint(0, 1)) {startAnim("move_down");}
-    if (getDirection() == QPoint(1, 0)) {startAnim("move_right");}
-    if (getDirection() == QPoint(-1, 0)) {startAnim("move_left");}
+
+    // determine which way to go
+    std::mt19937 generator(rd());
+
+    if (getSpeed() == 0.0) {
+        // check clyde's current available directions (with his sensors[like a self-driving car])
+        if (-getDirection() != QPoint(1, 0) && qRed(mazeWidget->getPixelRGB(centerX+bound, centerY)) == 0) {availableDirs.push_back(2);}
+        if (-getDirection() != QPoint(-1, 0) && qRed(mazeWidget->getPixelRGB(centerX-bound-safeDist, centerY)) == 0) {availableDirs.push_back(3);}
+        if (-getDirection() != QPoint(0, -1) && qRed(mazeWidget->getPixelRGB(centerX, centerY-bound-safeDist)) == 0) {availableDirs.push_back(0);}
+        if (-getDirection() != QPoint(0, 1) && qRed(mazeWidget->getPixelRGB(centerX, centerY+bound)) == 0) {availableDirs.push_back(1);}
+
+
+        std::uniform_int_distribution<int> dis(0, availableDirs.size()-1);
+        int rndIdx = dis(generator);
+        // random index
+        qDebug() << rndIdx;
+        setDirection(directions[availableDirs[rndIdx]]);
+
+        availableDirs.clear();
+
+        setSpeed(0.01);
+    }
+
 
     // move clyde
     setPos(pos().x()+getDirection().x()*speed,
            pos().y()+getDirection().y()*speed);
 
-    // reset available directions
-    availableDirs.clear();
+    if (getDirection() == QPoint(0, -1)) {startAnim("move_up");}
+    if (getDirection() == QPoint(0, 1)) {startAnim("move_down");}
+    if (getDirection() == QPoint(1, 0)) {startAnim("move_right");}
+    if (getDirection() == QPoint(-1, 0)) {startAnim("move_left");}
 }
 
 void Clyde::keyPressEvent(QKeyEvent *event) {

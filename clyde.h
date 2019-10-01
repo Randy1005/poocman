@@ -16,6 +16,7 @@ public:
     QPoint directions[4] = {{0, -1}, {0, 1}, {1, 0}, {-1, 0}};
 
     unsigned seed;
+    std::random_device rd;
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;
