@@ -32,6 +32,7 @@ SOURCES += \
         mainwindow.cpp \
     maze.cpp \
     mazegenerator.cpp \
+    node.cpp \
     poocman.cpp \
     timerproxy.cpp
 
@@ -44,6 +45,7 @@ HEADERS += \
         mainwindow.h \
     maze.h \
     mazegenerator.h \
+    node.h \
     poocman.h \
     timerproxy.h
 

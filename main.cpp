@@ -10,6 +10,7 @@
 #include "ghost.h"
 #include "clyde.h"
 #include "blinky.h"
+#include "node.h"
 
 
 int main(int argc, char *argv[])

@@ -2,7 +2,6 @@
 #define BLINKY_H
 #include "ghost.h"
 #include "poocman.h"
-#include <cmath>
 
 class Blinky : public Ghost
 {
