@@ -6,10 +6,10 @@
 class Node
 {
 public:
-    Node(Node *, QPointF);
+    Node(Node *, QPoint);
 
     int f, g, h;
-    QPointF position;
+    QPoint position;
     Node *parent;
 
     bool operator==(const Node &);

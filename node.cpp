@@ -1,8 +1,9 @@
 #include "node.h"
 
-Node::Node(Node *parentNode, QPointF pos) :
+Node::Node(Node *parentNode, QPoint pos) :
     position(pos), parent(parentNode)
 {
+    f = g = h = 0;
 
 }
 

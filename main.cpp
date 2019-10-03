@@ -71,7 +71,6 @@ int main(int argc, char *argv[])
     b->setSpeed(0.006);
     c->setSpeed(0.01);
 
-
     scene->setSceneRect(0, 0, mz->width(), mz->height());
     scene->addWidget(mz);
     scene->addItem(pc);
@@ -86,6 +85,10 @@ int main(int argc, char *argv[])
     view->setScene(scene);
     view->setFocusPolicy(Qt::StrongFocus);
     view->show();
+
+    //QVector<Node *> path = b->aStar(mz, new Node(nullptr, {105,28}), new Node(nullptr, {145,90}));
+
+
 
 
     return a.exec();
