@@ -12,7 +12,7 @@
 - implemented animation sprite class for sprite animation convenience
 
 ## TODO
-- bliny ghost : a pathfinding ghost (with A*)
+- blinky ghost : a pathfinding ghost (with A* pathfinding algorithm)
 - scene class / scene manager
 
 ## issues
