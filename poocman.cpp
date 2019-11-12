@@ -59,6 +59,12 @@ void Poocman::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
                pos().y()+direction.y()*speed);
     }
 
+    // collision with pacdots
+    QList<QGraphicsItem *> collItems = this->collidingItems();
+    foreach(QGraphicsItem *itm, collItems) {
+        Pacdot *dot = dynamic_cast<Pacdot *>(itm);
+        if (dot) scene->removeItem(dot);
+    }
 
 
 }

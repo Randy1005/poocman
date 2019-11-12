@@ -6,4 +6,6 @@
 #define GAME_HEIGHT 480
 #define MAZE_SIZE 480
 
+#include <QVariant>
+
 #endif // COMMONINFO_H

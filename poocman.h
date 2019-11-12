@@ -2,6 +2,7 @@
 #define POOCMAN_H
 #include "animationsprite.h"
 #include "commonInfo.h"
+#include "pacdot.h"
 #include <QKeyEvent>
 
 class Poocman : public AnimationSprite

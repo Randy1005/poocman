@@ -3,6 +3,7 @@
 
 #include <QGraphicsObject>
 #include <QPainter>
+#include "commonInfo.h"
 
 
 class Pacdot : public QGraphicsObject

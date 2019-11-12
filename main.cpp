@@ -66,7 +66,6 @@ int main(int argc, char *argv[])
 
 
 
-
     // test
     TimerProxy *tpro = new TimerProxy();
     Poocman *pc = new Poocman(tpro, ":/resource/poocman.json", scene, mz);
@@ -95,7 +94,6 @@ int main(int argc, char *argv[])
     scene->addItem(pc);
     scene->addItem(b);
     scene->addItem(c);
-
 
 
 
