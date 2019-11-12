@@ -10,7 +10,8 @@
 #include "ghost.h"
 #include "clyde.h"
 #include "blinky.h"
-#include "node.h"
+#include "pacdot.h"
+#include "commonInfo.h"
 
 
 int main(int argc, char *argv[])
@@ -63,19 +64,41 @@ int main(int argc, char *argv[])
     mz->renderToPixmap();
 
 
+
+
+
     // test
     TimerProxy *tpro = new TimerProxy();
     Poocman *pc = new Poocman(tpro, ":/resource/poocman.json", scene, mz);
     Clyde *c = new Clyde(tpro, ":/resource/ghost.json", scene, mz);
     Blinky *b = new Blinky(tpro, ":/resource/ghost.json", scene, mz, pc);
+
+
     b->setSpeed(0.006);
     c->setSpeed(0.01);
 
     scene->setSceneRect(0, 0, mz->width(), mz->height());
     scene->addWidget(mz);
+
+    // place pacdots
+    for (int i = 0; i < mz->width(); i+=20) {
+        for (int j = 0; j < mz->height(); j+=20) {
+            if (qRed(mz->getPixelRGB(i, j)) == 0) {
+                Pacdot *pd = new Pacdot();
+                pd->setPos(i/2, j/2);
+                scene->addItem(pd);
+            }
+        }
+    }
+
+
     scene->addItem(pc);
     scene->addItem(b);
     scene->addItem(c);
+
+
+
+
 
     // focusable poocman item
     pc->setFlag(QGraphicsItem::ItemIsFocusable);
@@ -85,9 +108,6 @@ int main(int argc, char *argv[])
     view->setScene(scene);
     view->setFocusPolicy(Qt::StrongFocus);
     view->show();
-
-    //QVector<Node *> path = b->aStar(mz, new Node(nullptr, {105,28}), new Node(nullptr, {145,90}));
-
 
 
 

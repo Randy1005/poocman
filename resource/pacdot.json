@@ -1,0 +1,28 @@
+{
+    "type": "collectable",
+    "name": "pacdot",
+    "sprite_name": "pacdot.png",
+    "behaviors": [
+        {
+            "name": "TransformBehavior",
+            "params": {
+                "position": [20, 20]
+            }
+        },
+        {
+            "name": "SpriteAnimationBehavior",
+            "params": {
+                "initialAnim": "idle",
+                "anims": [
+                    {
+                        "animName": "idle",
+                        "animFrames": [
+                            {"duration": 0.016, "rect": [0, 0, 2, 2], "origin": [10, 10]}
+                        ]
+                    }
+                ]
+            }
+        }
+
+    ]
+}

@@ -4,5 +4,7 @@
         <file>resource/poocman.json</file>
         <file>resource/ghost.json</file>
         <file>resource/blinky_sprite.png</file>
+        <file>resource/pacdot.json</file>
+        <file>resource/pacdot.png</file>
     </qresource>
 </RCC>

@@ -14,7 +14,7 @@ Clyde::Clyde(TimerProxy *tpro, QString name, QGraphicsScene *sc, Maze *mzWidget)
 }
 
 void Clyde::paint(QPainter *painter, const QStyleOptionGraphicsItem *style, QWidget *widget) {
-    painter -> drawPixmap(pos().x(), pos().y(), cell_unit, cell_unit,
+    painter->drawPixmap(pos().x(), pos().y(), cell_unit, cell_unit,
                           *mSpriteImage,
                           mSubRect.x(), mSubRect.y(), mSubRect.width(), mSubRect.height());
 

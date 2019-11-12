@@ -32,7 +32,7 @@ SOURCES += \
         mainwindow.cpp \
     maze.cpp \
     mazegenerator.cpp \
-    node.cpp \
+    pacdot.cpp \
     poocman.cpp \
     timerproxy.cpp
 
@@ -45,7 +45,7 @@ HEADERS += \
         mainwindow.h \
     maze.h \
     mazegenerator.h \
-    node.h \
+    pacdot.h \
     poocman.h \
     timerproxy.h
 
@@ -60,6 +60,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 DISTFILES += \
     resource/blinky_sprite.png \
     resource/ghost.json \
+    resource/pacdot.json \
     resource/pacman_sprite.png
 
 RESOURCES += \

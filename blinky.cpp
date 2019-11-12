@@ -8,10 +8,6 @@ Blinky::Blinky(TimerProxy *tpro, QString name, QGraphicsScene *sc, Maze *mzWidge
     setPos((offset+cell_unit)/2, cell_unit/2);
 
     pcman = pc;
-
-    for (int i = 0; i < newPositions.size(); i++) {
-        newPositions[i] *= 5;
-    }
 }
 
 void Blinky::paint(QPainter *painter, const QStyleOptionGraphicsItem *style, QWidget *widget) {
@@ -40,86 +36,3 @@ void Blinky::paint(QPainter *painter, const QStyleOptionGraphicsItem *style, QWi
     if (getDirection() == QPoint(1, 0)) {startAnim("move_right");}
     if (getDirection() == QPoint(-1, 0)) {startAnim("move_left");}
 }
-
-QVector<Node *> Blinky::aStar(Maze *mz, Node *startNode, Node *endNode) {
-    // initialize open and closed list
-    QVector<Node *> openList, closedList;
-
-    // append startNode to openList
-    openList.append(startNode);
-
-    // loop until we find the endNode
-    while (openList.size() > 0) {
-        // get the current node
-        Node *currNode = openList.front();
-        int currIdx = 0;
-        for(int i = 0; i < openList.size(); i++) {
-            if (openList[i]->f < currNode->f) {
-                currNode = openList[i];
-                currIdx = i;
-            }
-        }
-
-        // pop currNode off open list, append to closed list
-        openList.erase(openList.begin() + currIdx);
-        closedList.append(currNode);
-
-        // if we found the endNode
-        if (*currNode == *endNode) {
-            QVector<Node *> path;
-            Node *curr = currNode;
-            while (curr != nullptr) {
-                path.append(curr);
-                curr = curr->parent;
-            }
-
-            // reverse the path and return
-            std::reverse(path.begin(), path.end());
-            return path;
-        }
-
-        // generate children
-        QVector<Node *> children;
-        QPoint nodePos;
-        for (int i = 0; i < newPositions.size(); i++) {
-            nodePos = currNode->position + newPositions[i];
-
-            // check if it's walkable
-            if (qRed(mz->getPixelRGB(nodePos.x(), nodePos.y())) != 0)
-                continue;
-
-            // create new node and append to children list
-            Node *newNode = new Node(currNode, nodePos);
-            children.append(newNode);
-        }
-
-        // loop through children
-        for (int i = 0; i < children.size(); i++) {
-            // if child is in closedList
-            for (int j = 0; j < closedList.size(); j++) {
-                if (*children[i] == *closedList[j])
-                    continue;
-            }
-
-            // store f, g, h
-            children[i]->g = currNode->g + 1;
-            children[i]->h = (children[i]->position.x()-endNode->position.x())*(children[i]->position.x()-endNode->position.x()) +
-                             (children[i]->position.y()-endNode->position.y())*(children[i]->position.y()-endNode->position.y());
-            children[i]->f = children[i]->g + children[i]->h;
-
-            // if child is already in open list
-            for (int k = 0; k < openList.size(); k++) {
-                if (*children[i] == *openList[k] && children[i]->g > openList[k]->g)
-                    continue;
-            }
-
-            // append to openList
-            openList.append(children[i]);
-        }
-
-    }
-
-
-}
-
-

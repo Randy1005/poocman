@@ -35,7 +35,6 @@ Poocman::Poocman(TimerProxy *tpro, QString name, QGraphicsScene *parent, Maze *m
 }
 
 Poocman::~Poocman() {
-
 }
 
 void Poocman::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
