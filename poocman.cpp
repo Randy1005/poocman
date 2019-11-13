@@ -23,22 +23,14 @@ Poocman::Poocman(TimerProxy *tpro, QString name, QGraphicsScene *parent, Maze *m
     QString mSpritePath = ":/resource/" + chrJsonObj.value("sprite_name").toString();
     mSpriteImage = new QPixmap(mSpritePath);
 
-    // initialize animation
-    startAnim("idle");
-
-    // initialize speed/direction
-    setDirection({0, 0});
-
-    // set initial position (scenePos / 2) [just some random conversion, don't really know why]
-    setPos((offset+cell_unit)/2, cell_unit/2);
-    // -- calling mapToScene in this case does not work, cuz the item has not yet been added to the scene -- //
+    spawn();
 }
 
 Poocman::~Poocman() {
 }
 
 void Poocman::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
-    painter -> drawPixmap(pos().x(), pos().y(), cell_unit, cell_unit,
+    painter -> drawPixmap(scenePos().x(), scenePos().y(), cell_unit, cell_unit,
                           *mSpriteImage,
                           mSubRect.x(), mSubRect.y(), mSubRect.width(), mSubRect.height());
 
@@ -59,18 +51,25 @@ void Poocman::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
                pos().y()+direction.y()*speed);
     }
 
-    // collision with pacdots
+    // collision with pacdots and ghosts
     QList<QGraphicsItem *> collItems = this->collidingItems();
     foreach(QGraphicsItem *itm, collItems) {
         Pacdot *dot = dynamic_cast<Pacdot *>(itm);
-        if (dot) scene->removeItem(dot);
+        Ghost *g = dynamic_cast<Ghost *>(itm);
+        if (dot) {
+            scene->removeItem(itm);
+            dotsEaten++;
+        } else if (g) {
+            this->hide();
+            spawn();
+            this->show();
+            lives--;
+        }
     }
-
-
 }
 
 QRectF Poocman::boundingRect() const {
-    return mSubRect;
+    return QRectF(scenePos().x(), scenePos().y(), mSubRect.width(), mSubRect.height());
 }
 
 void Poocman::setSpeed(double newSpeed) {
@@ -113,6 +112,22 @@ void Poocman::keyPressEvent(QKeyEvent *event) {
         startAnim("move_left");
         break;
     }
+}
+
+void Poocman::spawn() {
+
+    // initialize animation
+    startAnim("idle");
+
+    // initialize speed/direction
+    setDirection({0, 0});
+
+    // set initial position (scenePos / 2) [just some random conversion, don't really know why]
+    setPos((offset+cell_unit*(2*MAZE_PASSAGE_SIZE-1))/2, cell_unit*(2*MAZE_PASSAGE_SIZE-1)/2);
+    // -- calling mapToScene in this case does not work, cuz the item has not yet been added to the scene -- //
+
+    this->setFlag(QGraphicsItem::ItemIsFocusable);
+    this->setFocus();
 }
 
 

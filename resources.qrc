@@ -6,5 +6,7 @@
         <file>resource/blinky_sprite.png</file>
         <file>resource/pacdot.json</file>
         <file>resource/pacdot.png</file>
+        <file>resource/button_sprite.png</file>
+        <file>resource/logo.png</file>
     </qresource>
 </RCC>

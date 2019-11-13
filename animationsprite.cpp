@@ -110,6 +110,6 @@ void AnimationSprite::timeUpdated(int msecs) {
         }
     }
 
-    scene -> update();
+    scene->update();
 
 }

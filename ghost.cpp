@@ -39,7 +39,7 @@ void Ghost::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
 }
 
 QRectF Ghost::boundingRect() const {
-    return mSubRect;
+    return QRectF(scenePos().x(), scenePos().y(), mSubRect.width(), mSubRect.height());
 }
 
 void Ghost::setSpeed(double newSpeed) {

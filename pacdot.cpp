@@ -12,9 +12,9 @@ Pacdot::~Pacdot() {
 
 void Pacdot::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
 
-    painter->drawPixmap(this->pos(), pixmap);
+    painter->drawPixmap(pos(), pixmap);
 }
 
 QRectF Pacdot::boundingRect() const {
-    return QRectF(this->pos().x(), this->pos().y(), pixmap.width(), pixmap.height());
+    return QRectF(scenePos().x(), scenePos().y(), 6, 6);
 }

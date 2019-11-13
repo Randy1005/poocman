@@ -3,6 +3,7 @@
 #include "animationsprite.h"
 #include "commonInfo.h"
 #include "pacdot.h"
+#include "ghost.h"
 #include <QKeyEvent>
 
 class Poocman : public AnimationSprite
@@ -18,12 +19,18 @@ public:
     double getSpeed();
     void setDirection(QPoint);
     QPoint getDirection();
+    void spawn();
 
 
     double speed;
     QPoint direction;
 
     int currDir; // 0 up 1 down 2 right 3 left
+
+    static int lives;
+    static int dotsEaten;
+
+
 
 protected:
     void keyPressEvent(QKeyEvent *) override;

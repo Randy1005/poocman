@@ -26,12 +26,15 @@ CONFIG += c++11
 SOURCES += \
     animationsprite.cpp \
     blinky.cpp \
+    button.cpp \
     clyde.cpp \
+    gamescene.cpp \
     ghost.cpp \
         main.cpp \
         mainwindow.cpp \
     maze.cpp \
     mazegenerator.cpp \
+    menuscene.cpp \
     pacdot.cpp \
     poocman.cpp \
     timerproxy.cpp
@@ -39,12 +42,15 @@ SOURCES += \
 HEADERS += \
     animationsprite.h \
     blinky.h \
+    button.h \
     clyde.h \
     commonInfo.h \
+    gamescene.h \
     ghost.h \
         mainwindow.h \
     maze.h \
     mazegenerator.h \
+    menuscene.h \
     pacdot.h \
     poocman.h \
     timerproxy.h

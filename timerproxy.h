@@ -14,6 +14,8 @@ public:
     ~TimerProxy();
     QTimer *timer;
 
+    static int countdown;
+
 signals:
     // for all animated sprites to register to
     void updateTime(int msecs);

@@ -14,6 +14,7 @@ public:
     void paint(QPainter *, const QStyleOptionGraphicsItem *, QWidget *) override;
     QRectF boundingRect() const override;
 
+
 private:
     QPixmap pixmap;
     QPixmap scaled;
