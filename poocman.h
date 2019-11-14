@@ -4,10 +4,12 @@
 #include "commonInfo.h"
 #include "pacdot.h"
 #include "ghost.h"
+#include <QObject>
 #include <QKeyEvent>
 
 class Poocman : public AnimationSprite
 {
+    Q_OBJECT
 public:
     Poocman(TimerProxy *, QString, QGraphicsScene *,Maze *);
     ~Poocman() override;
@@ -30,6 +32,9 @@ public:
     static int lives;
     static int dotsEaten;
 
+signals:
+    void gamesceneUpdateInfo(QString name);
+    void changeScene();
 
 
 protected:

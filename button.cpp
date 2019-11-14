@@ -1,6 +1,6 @@
 #include "button.h"
 
-Button::Button(QString path, QString text) : spritePath(path), text(text)
+Button::Button(QString path, QString text, QGraphicsView *v) : spritePath(path), text(text), view(v)
 {
     img = QImage(path);
 }
@@ -19,11 +19,16 @@ void Button::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     if (event->button() == Qt::LeftButton) {
         qDebug() << this->text;
         if (this->text == "PLAY") {
-
+            view->setScene(game);
+            Poocman::lives = 3;
+            Poocman::dotsEaten = 0;
+            TimerProxy::countdown = 5;
         } else if (this->text == "HELP") {
-
+            view->setScene(instr);
         } else if (this->text == "EXIT") {
-
+            QCoreApplication::quit();
+        } else if (this->text == "BACK" || this->text == "MENU") {
+            view->setScene(menu);
         }
     }
 

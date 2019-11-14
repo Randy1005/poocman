@@ -59,12 +59,19 @@ void Poocman::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
         if (dot) {
             scene->removeItem(itm);
             dotsEaten++;
+            emit gamesceneUpdateInfo("score");
+
         } else if (g) {
             this->hide();
             spawn();
             this->show();
             lives--;
+            emit gamesceneUpdateInfo("lives");
         }
+    }
+
+    if (lives == 0) {
+        emit changeScene();
     }
 }
 
@@ -129,5 +136,6 @@ void Poocman::spawn() {
     this->setFlag(QGraphicsItem::ItemIsFocusable);
     this->setFocus();
 }
+
 
 

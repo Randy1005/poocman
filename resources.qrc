@@ -8,5 +8,6 @@
         <file>resource/pacdot.png</file>
         <file>resource/button_sprite.png</file>
         <file>resource/logo.png</file>
+        <file>resource/game_over.png</file>
     </qresource>
 </RCC>

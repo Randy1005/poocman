@@ -28,8 +28,10 @@ SOURCES += \
     blinky.cpp \
     button.cpp \
     clyde.cpp \
+    gameoverscene.cpp \
     gamescene.cpp \
     ghost.cpp \
+    instrscene.cpp \
         main.cpp \
         mainwindow.cpp \
     maze.cpp \
@@ -45,8 +47,10 @@ HEADERS += \
     button.h \
     clyde.h \
     commonInfo.h \
+    gameoverscene.h \
     gamescene.h \
     ghost.h \
+    instrscene.h \
         mainwindow.h \
     maze.h \
     mazegenerator.h \

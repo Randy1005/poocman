@@ -3,24 +3,36 @@
 #include <QApplication>
 #include <QGraphicsView>
 #include "timerproxy.h"
-#include "poocman.h"
 #include "commonInfo.h"
 #include "gamescene.h"
 #include "menuscene.h"
+#include "gameoverscene.h"
+#include "instrscene.h"
+#include "button.h"
 
 int Poocman::dotsEaten = 0;
 int Poocman::lives = 3;
-int TimerProxy::countdown = 60;
+int TimerProxy::countdown = 5;
+QGraphicsScene *Button::menu = nullptr;
+QGraphicsScene *Button::game = nullptr;
+QGraphicsScene *Button::gameover = nullptr;
+QGraphicsScene *Button::instr = nullptr;
+
 
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    GameScene *game_scene = new GameScene();
-    MenuScene *menu_scene = new MenuScene();
+    QGraphicsView *view = new QGraphicsView();
+    GameScene *game_scene = new GameScene(view);
+    MenuScene *menu_scene = new MenuScene(view);
+    InstrScene *instr_scene = new InstrScene(view);
 
-    QGraphicsView *view = new QGraphicsView();  
 
+    // initialize scene members
+    Button::game = game_scene;
+    Button::menu = menu_scene;
+    Button::instr = instr_scene;
 
 
     // set scene to graphicsview
