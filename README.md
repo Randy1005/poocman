@@ -11,10 +11,6 @@
 - maze generation with recursive backtracking
 - implemented animation sprite class for sprite animation convenience
 
-## TODO
-- blinky ghost : a pathfinding ghost (with A* pathfinding algorithm)
-- scene class / scene manager
-
 ## issues
 - required to adjust commonInfo.h [MAZE_PASSAGE_SIZE], and wall check varibles when changing map
 
