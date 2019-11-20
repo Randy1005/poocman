@@ -19,4 +19,12 @@
 - required to adjust commonInfo.h [MAZE_PASSAGE_SIZE], and wall check varibles when changing map
 
 ## in game screenshot
-![Imgur](https://i.imgur.com/j8ULgYY.png)
+
+### Menu 
+![Imgur](https://i.imgur.com/Hve5uR9.png)
+
+### In-Game
+![Imgur](https://i.imgur.com/m9ThdIe.png)
+
+### Game Over
+![Imgur](https://i.imgur.com/XiSaXcL.png)
