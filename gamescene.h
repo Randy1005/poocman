@@ -1,6 +1,8 @@
 #ifndef GAMESCENE_H
 #define GAMESCENE_H
 #include <QGraphicsScene>
+#include <QGraphicsProxyWidget>
+#include <QMutableListIterator>
 #include <QDebug>
 #include <QApplication>
 #include <QGraphicsView>
@@ -24,10 +26,22 @@ class GameScene : public QGraphicsScene
     Q_OBJECT
 public:
     GameScene(QGraphicsView *);
+    void reset();
     QGraphicsView *view;
     QLabel *scoreLabel;
     QLabel *cntDownLabel;
     QLabel *livesLabel;
+
+    Maze *mz;
+    MazeGenerator *mGen;
+    Poocman *pc;
+    Clyde *c;
+    Clyde *c2;
+    QList<QList<bool>> map;
+    QList<Pacdot *> *pacdots;
+    QGraphicsProxyWidget *proxyItem;
+
+    TimerProxy *tpro;
 
 public slots:
     void updateLabel(QString);

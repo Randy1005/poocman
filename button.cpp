@@ -19,10 +19,10 @@ void Button::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     if (event->button() == Qt::LeftButton) {
         qDebug() << this->text;
         if (this->text == "PLAY") {
-            view->setScene(game);
-            Poocman::lives = 3;
+            Poocman::lives = 2;
+            TimerProxy::countdown = 80;
             Poocman::dotsEaten = 0;
-            TimerProxy::countdown = 5;
+            view->setScene(game);
         } else if (this->text == "HELP") {
             view->setScene(instr);
         } else if (this->text == "EXIT") {

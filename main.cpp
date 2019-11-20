@@ -11,8 +11,8 @@
 #include "button.h"
 
 int Poocman::dotsEaten = 0;
-int Poocman::lives = 3;
-int TimerProxy::countdown = 5;
+int Poocman::lives = 2;
+int TimerProxy::countdown = 200;
 QGraphicsScene *Button::menu = nullptr;
 QGraphicsScene *Button::game = nullptr;
 QGraphicsScene *Button::gameover = nullptr;
