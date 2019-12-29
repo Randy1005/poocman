@@ -6,6 +6,14 @@
 ## UML diagram
 - https://drive.google.com/file/d/1cpLjieFD7NXd9RMCqHMR3DDOjwh_H7Xk/view?usp=sharing
 
+## installation instructions
+- install Git for Windows
+- run Git Bash anywhere and type in the following command
+```
+  git clone https://github.com/Randy1005/poocman.git
+```
+- the executable file will be in poocman/poocmanRelease/poocman.exe
+= run the executable file
 
 ## features
 - maze generation with recursive backtracking
@@ -24,3 +32,5 @@
 
 ### Game Over
 ![Imgur](https://i.imgur.com/XiSaXcL.png)
+
+
